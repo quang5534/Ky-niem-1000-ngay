@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>1000 ngày bên em 💖</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      color: white;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    .message {
+      max-width: 600px;
+      font-size: 1.5em;
+      white-space: pre-wrap;
+      border-right: 2px solid white;
+      animation: blink 1s infinite step-start;
+    }
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stars"></canvas>
+  <div class="message" id="typewriter"></div>
+
+  <script>
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let hearts = [];
+    for (let i = 0; i < 80; i++) {
+      hearts.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 3 + 1,
+        speed: Math.random() * 0.5 + 0.2,
+      });
+    }
+
+    function drawHearts() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(255, 105, 180, 0.8)";
+      hearts.forEach((h) => {
+        ctx.beginPath();
+        ctx.moveTo(h.x, h.y);
+        ctx.arc(h.x, h.y, h.size, 0, Math.PI * 2);
+        ctx.fill();
+        h.y -= h.speed;
+        if (h.y < 0) {
+          h.y = canvas.height;
+          h.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(drawHearts);
+    }
+    drawHearts();
+
+    const text = `Gửi em – người đã cùng anh đi qua 1000 ngày thật đặc biệt 💝
+
+Trước tiên, anh muốn cảm ơn hai chúng ta… đã cùng đồng hành một chặng đường thật dài.
+Chúng ta đã trải qua rất nhiều chuyện – vui có, buồn có… nhưng sau tất cả, ta vẫn ở
+ lại bên nhau. Và với anh, điều đó thật đáng trân quý.
+
+Lần này, thay vì viết trên giấy như thường lệ, anh muốn làm điều gì đó mới mẻ 
+hơn – như em từng bảo: "Anh phải mới mẻ và sáng tạo hơn!"
+Vậy nên, món quà này anh viết bằng những dòng code, bởi đó cũng là một phần cuộc sống 
+của anh – và giờ có em ở trong đó.
+
+Anh biết, có những lúc anh đã làm em buồn…
+Anh ít khi chia sẻ cảm xúc thật, ít nói ra những điều làm anh mệt mỏi hay tổn thương.
+Trong khi đó, em lại luôn mong anh có thể tâm sự nhiều hơn. Anh sẽ cố gắng sửa. Từ hôm
+ nay, anh sẽ học cách mở lòng, học cách kể chuyện với em nhiều hơn.
+
+Chúng ta đã yêu nhau từ những điều rất mới mẻ – vì xinh đẹp, vì giỏi giang, vì cảm giác
+ rung động đầu tiên.
+Nhưng thời gian trôi qua, những thứ mới mẻ ấy dần trở thành điều quen thuộc, và khi quen 
+rồi… ta dễ quên mất lý do vì sao từng yêu nhau đến vậy.
+Anh biết em đôi khi thấy chán – và muốn một điều gì đó khác đi.
+Anh hiểu.
+
+Chúng ta đang ở giai đoạn xây móng cho tương lai, không phải là lúc để đắm chìm trong hoa
+ hồng và nến.
+Cuộc sống anh bây giờ vẫn còn khó khăn, khó đủ điều – nhưng anh vẫn 
+luôn nghĩ đến em trong từng lựa chọn.
+Bởi với anh, đi qua những ngày mưa cùng nhau, thì những ngày nắng sẽ càng rực rỡ hơn bao giờ hết.
+
+Anh thật sự muốn biết: “Mới mẻ mà em cần là gì?”
+Với anh, thấy nhau lớn lên và tiến bộ mỗi ngày chính là điều mới mẻ nhất.
+
+Bây giờ là 2 giờ sáng… Anh lại mất ngủ.
+Đêm nào anh cũng ráng ngủ sớm, nhưng cứ trằn trọc mãi không được. Có lẽ vì nhớ emiu quá.
+Em về quê rồi, vắng em, anh chẳng còn muốn đi làm…
+Đi làm cũng chỉ là đi cho có, rồi lại về, chẳng ai chở, chẳng ai đợi. Phải chi có em… thì 
+em đã chở anh về, rồi mình cùng ăn tô hủ tiếu như mọi khi… vui biết mấy.
+
+Anh viết hơi nhiều rồi nhỉ... Thôi, tới đây thôi.
+Anh đi ngủ đây… Anh iu bé nhìu lắmmm 💕💕💕
+Mong em thích món quà này!
+
+Mãi yêu em. 💕
+– Người yêu của em: Hoàng Anh Quang
+
+`;
+
+    let i = 0;
+    function typeWriter() {
+      if (i < text.length) {
+        document.getElementById("typewriter").textContent += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50);
+      }
+    }
+    typeWriter();
+  </script>
+</body>
+</html>
